@@ -3,9 +3,8 @@ import type{ AxiosResponse, AxiosRequestConfig } from 'axios';
 
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
-const node_env = import.meta.env.VITE_NODE_ENV
 
-const BASE_URL = node_env === 'dev' ? 'http://localhost:3000/api/': '/api/';
+const BASE_URL = 'http://localhost:5000/api/'
 
 const api = axios.create({
   baseURL: BASE_URL,

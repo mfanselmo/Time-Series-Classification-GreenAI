@@ -19,9 +19,11 @@ export default defineConfig({
     }),
   ],
   server: {
-    open: true,
+    port: 8080,
+    host: true,
   },
-  build: {
-    outDir: './../backend/build'
-  }
+  preview: {
+    port: 8080,
+    host: true,
+  },
 })
