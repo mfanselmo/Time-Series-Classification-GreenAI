@@ -1,15 +1,12 @@
-from pyexpat import model
 from sqlalchemy.orm import Session, joinedload, lazyload
 from typing_extensions import get_args
 
 from constants import DATASET_ESTIMATORS, DATASET_TYPE_NAMES, DETAIL_LEVEL, METRICS, RUN_DESCRIPTORS
 
-from db import schemas
 from db.models import Experiment, Run, CompletenessCurve
 from utils.completeness_curve import get_experiment_completeness_curve
 from utils.file_helpers import load_results
 from utils.numpy_encoder import NumpyEncoder
-from pydantic.typing import Union
 
 
 def get_or_create(session, db_model, **kwargs):
@@ -86,7 +83,7 @@ def get_experiment(db: Session, dataset_name: str, model_name: str, detail_level
     return basic_query.first()
 
 
-def get_experiments(db: Session, detail_level: DETAIL_LEVEL = "0", dataset_type: Union[DATASET_TYPE_NAMES, None] = None):
+def get_experiments(db: Session, detail_level: DETAIL_LEVEL = "0", dataset_type: DATASET_TYPE_NAMES | None = None):
     basic_query = db.query(Experiment)
     if dataset_type is not None:
         basic_query = basic_query.filter_by(dataset_type = dataset_type)
@@ -101,7 +98,7 @@ def get_experiments(db: Session, detail_level: DETAIL_LEVEL = "0", dataset_type:
     return basic_query.all()
 
 
-def get_runs(db: Session, dataset_type: Union[DATASET_TYPE_NAMES, None] = None, dataset_name: Union[str, None] = None, model_name: Union[str, None] = None):
+def get_runs(db: Session, dataset_type: DATASET_TYPE_NAMES | None = None, dataset_name: str | None = None, model_name: str | None = None):
 
     experiment_kwargs = {'dataset_type': dataset_type, 'dataset': dataset_name, 'model': model_name}
     experiment_kwargs = {k: v for k, v in experiment_kwargs.items() if v is not None}

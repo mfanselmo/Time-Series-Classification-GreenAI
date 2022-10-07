@@ -1,4 +1,3 @@
-from typing import List
 from typing_extensions import get_args
 
 from joblib import dump, load
@@ -32,7 +31,7 @@ class Regressor:
 
 
 
-    def fit(self, experiments: List[Experiment]):
+    def fit(self, experiments: list[Experiment]):
         self.regressor = RandomForestRegressor()
         X, y = self.preprocess_data(experiments)
 
@@ -55,7 +54,7 @@ class Regressor:
 
         return self.regressor.predict(np.concatenate([X_cat, X_num], axis=1))[0]
 
-    def preprocess_data(self, experiments: List[Experiment]):
+    def preprocess_data(self, experiments: list[Experiment]):
         X_cat = []
         X_num = []
         y = []

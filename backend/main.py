@@ -1,12 +1,8 @@
-from code import interact
-from pydantic.typing import Union
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import Depends, FastAPI, HTTPException, Request, UploadFile
 
 from sqlalchemy.orm import Session
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import PlainTextResponse
 
 from db import crud, models
 from db.database import SessionLocal, engine
@@ -31,8 +27,7 @@ def get_db():
 
 app = FastAPI(title="main app")
 
-
-app.get("/api/load_experiments_on_db")
+# app.get("/api/load_experiments_on_db")
 
 @app.get('/api/')
 def api_root():
@@ -85,13 +80,13 @@ def get_experiment(dataset_name: str, model_name: str, detail_level: DETAIL_LEVE
     return crud.get_experiment(db, dataset_name, model_name, detail_level)
 
 @app.get("/api/get_experiments")
-def get_experiments(detail_level: DETAIL_LEVEL = "0", dataset_type: Union[DATASET_TYPE_NAMES, None] = None, db: Session = Depends(get_db)):
+def get_experiments(detail_level: DETAIL_LEVEL = "0", dataset_type: DATASET_TYPE_NAMES | None = None, db: Session = Depends(get_db)):
     """
     """ 
     return crud.get_experiments(db, detail_level, dataset_type)
 
 @app.get("/api/get_runs")
-def get_runs(dataset_type: Union[DATASET_TYPE_NAMES, None] = None, dataset_name: Union[str, None] = None, model_name: Union[str, None] = None,  db: Session = Depends(get_db)):
+def get_runs(dataset_type: DATASET_TYPE_NAMES | None = None, dataset_name: str | None = None, model_name: str | None = None,  db: Session = Depends(get_db)):
     """
     """
     return crud.get_runs(db, dataset_type, dataset_name, model_name)
@@ -152,24 +147,13 @@ async def clean_dataset(file: UploadFile, dataset_percent: float, reducing_metho
     return dataset_analizer.clean_dataset(dataset_percent, reducing_method)
 
 
-
-
-
-
-
-
-
-templates = Jinja2Templates(directory="build")
-
-
-@app.get("/{full_path:path}")
-def catch_all(request: Request, full_path: str):
-    return templates.TemplateResponse("index.html", {"request": request})
-
 origins = [
     "http://localhost",
-    "http://localhost:5173",
+    "http://localhost:8080",
 ]
+
+
+
 
 app.add_middleware(
     CORSMiddleware,

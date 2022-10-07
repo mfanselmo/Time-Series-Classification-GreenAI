@@ -16,12 +16,3 @@ def load_results(dataset_type: DATASET_TYPE_NAMES) -> pd.DataFrame:
                 total_df = pd.concat([total_df, pd.read_csv(f"{RESULTS_PATH}/{dataset_type}/{file}")])
 
     return total_df
-
-
-# def get_dataset_results(dataset_type: DATASET_TYPE_NAMES, dataset_name: str, model_name: Union[None, str]) -> pd.DataFrame:
-#     df = load_results(dataset_type)
-#     query = f"dataset == '{dataset_name}'"
-#     if model_name:
-#         query += f"and model == '{model_name}'"
-        
-#     return df.query(query)

@@ -1,5 +1,3 @@
-from typing import List, Union
-
 from pydantic import BaseModel
 
 
@@ -64,7 +62,7 @@ class ExperimentBase(BaseModel):
 
 class Experiment(ExperimentBase):
     id: int
-    runs: List[Run] = []
+    runs: list[Run] = []
     completeness_curve: CompletenessCurve = None
 
     class Config:

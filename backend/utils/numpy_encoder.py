@@ -1,5 +1,4 @@
 import numpy as np
-from typing import Union
 
 def transformer(obj):
     if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
@@ -25,7 +24,7 @@ def transformer(obj):
 
     return obj
 
-def NumpyEncoder(object: Union[list, dict]): 
+def NumpyEncoder(object: list | dict): 
     """ Converts dicts or arrays with numpy types to python """
 
 
