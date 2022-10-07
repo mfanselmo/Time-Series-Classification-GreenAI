@@ -12,3 +12,5 @@ frontend/__pycache__
 __pycache__/
 *.py[cod]
 *.joblib
+
+backend/sql_app.db
