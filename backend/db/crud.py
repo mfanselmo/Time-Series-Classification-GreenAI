@@ -42,7 +42,7 @@ def load_runs_csvs(db: Session, dataset_type: DATASET_TYPE_NAMES):
         for index, value in values.iterrows():
             db_runs.append(Run(**{i: value[i] for i in RUN_DESCRIPTORS}, experiment=experiment))
 
-    db.add_all(db_runs)
+    db.add_all(db_experiments)
     db.commit()
 
     return db_experiments

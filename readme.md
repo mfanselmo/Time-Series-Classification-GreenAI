@@ -26,7 +26,7 @@ curl -X 'GET' 'http://localhost:5000/api/load_experiments_on_db?reset_db=true' -
 
 curl -X 'GET' 'http://localhost:5000/api/load_completeness_curves?load_only_missing=false' -H 'accept: application/json'
 
-curl -X 'GET' 'http://localhost:5000/api/train_regressor?dataset_type=time_series&metric=f1_score' -H 'accept: application/json'
+curl -X 'GET' 'http://localhost:5000/api/train_regressors' -H 'accept: application/json'
 ```
 
 You can now visit the interface in https://localhost:8080
@@ -63,7 +63,7 @@ curl -X 'GET' 'http://localhost:5000/api/load_experiments_on_db?reset_db=true' -
 
 curl -X 'GET' 'http://localhost:5000/api/load_completeness_curves?load_only_missing=false' -H 'accept: application/json'
 
-curl -X 'GET' 'http://localhost:5000/api/train_regressor?dataset_type=time_series&metric=f1_score' -H 'accept: application/json'
+curl -X 'GET' 'http://localhost:5000/api/train_regressors' -H 'accept: application/json'
 ```
 
 You can now visit the interface in https://localhost:8080
