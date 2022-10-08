@@ -11,9 +11,9 @@ export const loadCompletenessCurvesFn = async (data: ILoadCompletenessCurvesInpu
     const response = await api.get<EmptyResponse>('load_completeness_curves', { params: data });
     return response.data;
 }
-export const trainRegressorFn = async (data: ITrainRegressorInput) => {
+export const trainRegressorFn = async () => {
     
-    const response = await api.get<EmptyResponse>('train_regressor', { params: data });
+    const response = await api.get<EmptyResponse>('train_regressors');
     return response.data;
 }
 

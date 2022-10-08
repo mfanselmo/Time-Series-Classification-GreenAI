@@ -1,11 +1,21 @@
 
 
-export const Datasets = ["ChlorineConcentration", "Coffee", "ElectricDevices", "EthanolLevel", "PhalangesOutlinesCorrect", "StarLightCurves", "UWaveGestureLibraryAll"]
-export const Models = ["FCN", "MLP", "RESNET"]
+export const Datasets = [
+  "CIFAR-10",
+  "FASHION-MNIST",
+  "ChlorineConcentration", 
+  "Coffee", 
+  "ElectricDevices", 
+  "EthanolLevel", 
+  "PhalangesOutlinesCorrect", 
+  "StarLightCurves", 
+  "UWaveGestureLibraryAll"
+]
+export const Models = ["FCN", "MLP", "RESNET", "CNN_BIG", "CNN_SMALL"]
 export const DatasetTypes = ["time_series", "images"] as const;
 export const DataTypes = ['Sensor', 'Spectro', 'Image', 'Other'] as const;
 export const ModelTypes = ['SIMPLE_CNN', 'SIMPLE_MLP', 'RESNET', 'Other'] as const;
-export const Metrics = ["f1_score"] as const;
+export const Metrics = ["f1_score", "categorical_accuracy", "precision", "recall", "auc"] as const;
 export const DetailLevels = ["0", "1", "2"] as const;
 export const ReducingMethods = ["keep_distributions", "balance_classes"] as const;
 
@@ -131,13 +141,11 @@ export interface ILoadCompletenessCurvesInput {
   loadOnlyMissing: boolean;
 }
 export interface ITrainRegressorInput {
-  datasetType: DatasetTypesTypes
-  metric: MetricTypes
 }
 
 export interface IGetExperimentsInput {
   detailLevel: DetailLevelsTypes
-  datasetType: DatasetTypesTypes
+  datasetType: DatasetTypesTypes | null
 }
 
 export interface IGetExperimentsResponse extends Array<IDBExperiment>{}

@@ -32,6 +32,8 @@ const datasets = computed(() => {
 
     return data.value.filter(e => {
         return (
+            (adminFilters.selectedDatasetType === null || adminFilters.selectedDatasetType === e.datasetType) 
+            && 
             (adminFilters.selectedModel === null || adminFilters.selectedModel === e.model) 
             && 
             (adminFilters.selectedDataset === null || adminFilters.selectedDataset === e.dataset)

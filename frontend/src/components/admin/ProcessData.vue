@@ -14,10 +14,6 @@ const loadExperimentsOnDbData: ILoadExperimentsOnDbInput = reactive({
 const loadCompletenessCurvesData: ILoadCompletenessCurvesInput = reactive({
     loadOnlyMissing: false
 })
-const trainRegressorData: ITrainRegressorInput = reactive({
-    datasetType: 'time_series',
-    metric: 'f1_score'
-})
 
 const {
     mutate: loadExperimentsOnDb,
@@ -40,7 +36,7 @@ const {
     isLoading: trainRegressorLoading,
     isError: trainRegressorIsError,
     error: trainRegressorError
-} = useMutation((data: ITrainRegressorInput) => trainRegressorFn(data));
+} = useMutation(() => trainRegressorFn());
 
 
 
@@ -71,9 +67,7 @@ const {
             <v-separator text="Train Regressors" />
             <v-danger-alert v-if="trainRegressorError">{{(trainRegressorError as any).response.data.detail}}</v-danger-alert>
             <div class="flex justify-between">
-                <v-select class="flex-1 mr-2" :options="DatasetTypes" v-model:selected="trainRegressorData.datasetType" />
-                <v-select class="flex-1 mr-2" :options="Metrics" v-model:selected="trainRegressorData.metric" />
-                <v-button @click="trainRegressor(trainRegressorData)" :theme="trainRegressorIsError ? 'error': 'primary'"
+                <v-button @click="trainRegressor()" :theme="trainRegressorIsError ? 'error': 'primary'"
                     :loading="trainRegressorLoading">Load</v-button>
             </div>
         </section>
