@@ -1,6 +1,23 @@
-# Thesis 
+# Dataset Analyzer and Preprocessor
 
-## Run Locally
+## Features
+
+### Changelog
+- Added more metrics as goal metrics
+- Added images datasets
+- Add method for reducing dataset (balanced vs uniform)
+- Added notebook containing analysis of the tool on actual data
+- Uploaded to github and dockerized 
+
+### To do
+
+- [ ] Add more TS datasets
+- [ ] Clean UI
+- [ ] Add a section that shows user what are the environmental impacts when using the tool (carbon emission reduction, etc)
+
+
+
+## Run the tool
 
 ### Docker and Docker-Compose (Recommended)
 
