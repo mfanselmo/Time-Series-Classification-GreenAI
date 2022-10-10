@@ -55,7 +55,7 @@ DATASET_NAMES = []
 MODEL_NAMES = []
 
 MODEL_TYPES = Literal['SIMPLE_CNN', 'SIMPLE_MLP', 'RESNET', 'Other']
-DATA_TYPES = Literal['Sensor', 'Spectro', 'Image', 'Device', 'Motion', 'Other']
+DATA_TYPES = Literal['Sensor', 'Spectro', 'Image', 'Device', 'Motion', 'Simulated', 'Traffic', 'ECG', 'EOG', 'Other']
 METRICS = Literal['f1_score', 'auc', 'categorical_accuracy', 'precision', 'recall']
 REDUCING_METHODS = Literal['keep_distributions', 'balance_classes']
 
