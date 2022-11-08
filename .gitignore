@@ -1,3 +1,7 @@
+tool-analysis/.ipynb_checkpoints
+thesis_figures.ipynb
+extra.ipynb
+
 frontend/node_modules
 frontend/.DS_Store
 frontend/dist
