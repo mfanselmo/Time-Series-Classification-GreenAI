@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cleanDatasetFn } from 'src/api/general';
-import { ReducingMethods, type ICleanDatasetData } from 'src/api/types';
+import { ReducingMethods, ReducingMethodsLabels, type ICleanDatasetData } from 'src/api/types';
 import { userPrediction, userGoalInfo, analizeDataset, userDatasetFile, reducingMethod } from 'src/stores/userDataset';
 import { useMutation } from 'vue-query';
 
@@ -52,9 +52,9 @@ const {
             <show-data  :data="newDatasetData" class="mt-2 mb-4"/>
 
         </div>
-        <v-select label="Reducing Method" v-model:selected="reducingMethod" :options="ReducingMethods" placeholder="Choose an option"/>
-        <v-button class="w-full" :loading="cleanDatasetLoading" :disabled="!analizeDataset" @click="cleanDataset">
-            Clean Dataset
+        <v-select label="Reducing Method" v-model:selected="reducingMethod" :options="ReducingMethods.map(r => ({ label: ReducingMethodsLabels[r], value: r}))" placeholder="Choose an option"/>
+        <v-button class="w-full mt-7" :loading="cleanDatasetLoading" :disabled="!analizeDataset" @click="cleanDataset">
+            Reduce Dataset
         </v-button>
     </div>
 </template>

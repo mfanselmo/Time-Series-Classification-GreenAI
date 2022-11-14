@@ -12,13 +12,13 @@ const labels = computed(() => {
 
 const datasets = computed(() => {
     if (!userPrediction.ready) return []
-    const intercept = (userGoalInfo.baseMetricResult as number) - (userGoalInfo.baseMetricResultPercentage as number) *userPrediction.metricCoefficient
+    const intercept = (userGoalInfo.baseMetricResult as number) - Math.log(userGoalInfo.baseMetricResultPercentage as number) *userPrediction.metricCoefficient
     
     return [{
         label: 'User Dataset',
         backgroundColor: '#f87979',
         borderColor: "#f87979",
-        data: labels.value.map(i => Math.min(intercept  + userPrediction.metricCoefficient*i,1 ))
+        data: labels.value.map(i => Math.min(intercept  + userPrediction.metricCoefficient*Math.log(i),1 ))
     }]
 })
 
@@ -36,7 +36,7 @@ const importantClass = "text-indigo-700 font-bold"
         <v-title size="h2">Results</v-title>
         <v-info-alert class="mt-4" v-if="!userPrediction.ready" >Input your data to continue</v-info-alert>
         <div v-else>
-            <line-plot :labels="labels" :datasets="datasets"/>
+            <line-plot :labels="labels" :datasets="datasets" x-label="Dataset Percent" y-label="F1-Score"/>
 
             <div class="mt-4">
                 <p class="prose prose-lg text-justify">
@@ -44,11 +44,11 @@ const importantClass = "text-indigo-700 font-bold"
                     of your dataset to get the desired
                     <span :class="importantClass">{{userGoalInfo.metric}}: {{displayPercent(userGoalInfo.goalMetric as number)}}% </span>
                 </p>
-                <p class="prose prose-lg text-justify">
+                <!-- <p class="prose prose-lg text-justify">
                     In order to reach this goal, we recommend focusing the 
                     <span :class="importantClass">removing</span> on removing as much low quality data.
                     You can do so automatically by clicking the button below.
-                </p>
+                </p> -->
             </div>
         </div>
     </div>

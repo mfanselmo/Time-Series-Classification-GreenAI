@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getPredictionFn, getDatasetInfoFn } from 'src/api/general';
-import { DatasetTypes, DataTypes, Metrics, ModelTypes } from 'src/api/types';
+import { DatasetTypes, DataTypes, Metrics, ModelTypes, ModelTypesLabels } from 'src/api/types';
 import type { IGetUserPredictionData, IGetUserPredictionDataInitial } from 'src/api/types';
 import { useMutation } from 'vue-query';
 import { 
@@ -44,7 +44,7 @@ const {
 
 const userDatasetInfoHasNull = computed(() => {
     const userPredictionData: IGetUserPredictionDataInitial = { ...userDatasetInfo, ...userModelInfo, ...userGoalInfo }
-
+    console.log(userPredictionData)
     return Object.values(userPredictionData).some(x => x === null)
 })
 
@@ -78,21 +78,21 @@ const getFullPrediction = () => {
 </script>
 
 <template>
-    <div>
+    <div class="grid grid-cols-1">
         <div>
             <v-separator text="Dataset Info" />
             <div class="mt-2 mb-4">
                 <v-checkbox v-model="analizeDataset" label="Analyze and clean dataset automatically"/>
             </div>
             <div class="flex mb-2 space-x-2">
-                <v-select class="w-full" label="Dataset Type" v-model:selected="userDatasetInfo.datasetType"
-                    :options="DatasetTypes" />
+                <!-- <v-select class="w-full" label="Dataset Type" v-model:selected="userDatasetInfo.datasetType"
+                    :options="DatasetTypes" /> -->
                 <v-select class="w-full" label="Data Type" v-model:selected="userDatasetInfo.dataType"
-                    :options="DataTypes" />
+                    :options="DataTypes.map(d => ({label: d, value: d}))" />
             </div>
             <div v-if="analizeDataset">
                 <v-file-input v-model="userDatasetFile" label="Upload Dataset File" />
-                  <show-data class="mt-6" :data="{...userDatasetInfo, ...userDatasetDataQualityInfo}"/>
+                <!-- <show-data class="mt-6" :data="{...userDatasetInfo, ...userDatasetDataQualityInfo}"/> -->
             </div>
         
             <div v-else>
@@ -110,20 +110,22 @@ const getFullPrediction = () => {
                     <v-input placeholder="1" label="Consistency" v-model="userDatasetDataQualityInfo.consistency" number />
                 </div> -->
             </div>
-        </div>
-        <div>
             <v-separator text="Model Info" />
-            <v-select class="mb-2"  label="Model Type" v-model:selected="userModelInfo.modelType" :options="ModelTypes" />
+            <v-select class="mb-2"  label="Model Type" v-model:selected="userModelInfo.modelType" :options="ModelTypes.map(m => ({label: ModelTypesLabels[m], value: m}))" />
             <v-input  class="mb-2" placeholder="25000" label="Number of parameters" v-model="userModelInfo.nParameters" number />
         </div>
+
         <div>
-            <v-separator text="Goals" />
-            <v-select class="mb-2" label="Metric" v-model:selected="userGoalInfo.metric" :options="Metrics" />
-            <v-input class="mb-2" placeholder="0.40" label="Percent of data used for base result" v-model="userGoalInfo.baseMetricResultPercentage" number />
-            <v-input class="mb-2" placeholder="0.65" label="Base result" v-model="userGoalInfo.baseMetricResult" number />
-            <v-input class="mb-2" placeholder="0.80" label="Goal" v-model="userGoalInfo.goalMetric" number />
+            <div>
+                <v-separator text="Goals" />
+                <!-- <v-select class="mb-2" label="Metric" v-model:selected="userGoalInfo.metric" :options="Metrics" /> -->
+                <!-- <v-input class="mb-2" placeholder="0.40" label="Percent of data used for base result" v-model="userGoalInfo.baseMetricResultPercentage" number /> -->
+                <v-input class="mb-2" placeholder="0.65" label="Base result at 50% of the dataset" v-model="userGoalInfo.baseMetricResult" number />
+                <v-input class="mb-2" placeholder="0.80" label="Goal in F1-Score" v-model="userGoalInfo.goalMetric" number />
+            </div>
+            <v-button class="w-full" :loading="getPredictionLoading" :disabled="userDatasetInfoHasNull"
+                @click="getFullPrediction">Get prediction
+            </v-button>
         </div>
-        <v-button class="w-full" :loading="getPredictionLoading" :disabled="userDatasetInfoHasNull"
-            @click="getFullPrediction">Get prediction</v-button>
     </div>
 </template>

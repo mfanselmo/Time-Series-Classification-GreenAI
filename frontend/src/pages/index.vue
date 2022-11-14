@@ -15,14 +15,19 @@ useHead({
 </script>
 
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-2">
-    <div class="lg:pr-8 lg:mb-0 mb-6">
-      <get-prediction-form />
+  <div>
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="mb-6 lg:pr-8 lg:mb-0">
+        <get-prediction-form />
+      </div>
+      <div class="lg:pl-8 ">
+        <show-prediction class="mt-4"/>
+        <clean-dataset class="mt-6"/>
+      </div>
+    
     </div>
-    <div class="lg:pl-8 ">
-      <show-prediction class="mt-4"/>
-      <clean-dataset class="mt-6"/>
+    <div class="mt-8">
+      <carbon-reduction-analysis />
     </div>
-
   </div>
 </template>

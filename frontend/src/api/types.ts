@@ -11,13 +11,17 @@ export const Datasets = [
   "StarLightCurves", 
   "UWaveGestureLibraryAll"
 ]
-export const Models = ["FCN", "MLP", "RESNET", "CNN_BIG", "CNN_SMALL"]
-export const DatasetTypes = ["time_series", "images"] as const;
-export const DataTypes = ['Sensor', 'Spectro', 'Image', 'Other'] as const;
+export const Models = ["FCN", "MLP", "RESNET"] as const
+export const ModelsLabels = {"FCN": "FCN", "MLP": "MLP", "RESNET": "ResNet"}
+export const DatasetTypes = ["time_series"] as const;
+export const DataTypes = ['Sensor', 'Spectro', 'Spectrum', 'Image', 'Device', 'Motion', 'Simulated', 'Traffic', 'ECG', 'EOG', 'Other'] as const;
 export const ModelTypes = ['SIMPLE_CNN', 'SIMPLE_MLP', 'RESNET', 'Other'] as const;
-export const Metrics = ["f1_score", "categorical_accuracy", "precision", "recall", "auc"] as const;
+export const ModelTypesLabels = {'SIMPLE_CNN': "FCN", 'SIMPLE_MLP': "MLP", 'RESNET': "ResNet", 'Other': 'Other'} as const;
+export const Metrics = ["f1_score"] as const;
+export const MetricsLabels = {"f1_score": "F1-Score"} as const;
 export const DetailLevels = ["0", "1", "2"] as const;
 export const ReducingMethods = ["keep_distributions", "balance_classes"] as const;
+export const ReducingMethodsLabels = {"keep_distributions": "Remove from all classes", "balance_classes": "Remove from majority class"} as const;
 
 export type DatasetTypesTypes = typeof DatasetTypes[number];
 export type DataTypesTypes = typeof DataTypes[number];

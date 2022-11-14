@@ -4,7 +4,7 @@ import type { IGetPredictionResponse, IModelInfoInitial, IDatasetInfoInitial, IG
 export const userDatasetInfo : IDatasetInfoInitial = reactive({
       datapointH: null,
       datapointW: null,
-      datasetType: null,
+      datasetType: "time_series",
       dimensions: null,
       numClasses: null,
       classesCounts: null,
@@ -24,8 +24,8 @@ export const userModelInfo: IModelInfoInitial = reactive({
 })
 
 export const userGoalInfo: IGoalInfoInitial = reactive({
-      metric: null, 
-      baseMetricResultPercentage: null, 
+      metric: "f1_score", 
+      baseMetricResultPercentage: 0.5, 
       baseMetricResult: null, 
       goalMetric: null, 
 })

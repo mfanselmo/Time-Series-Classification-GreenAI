@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BarPlot: typeof import('./src/components/BarPlot.vue')['default']
+    CarbonReductionAnalysis: typeof import('./src/components/user/CarbonReductionAnalysis.vue')['default']
     CleanDataset: typeof import('./src/components/user/CleanDataset.vue')['default']
     CompletenessCurves: typeof import('./src/components/admin/CompletenessCurves.vue')['default']
     DisplayExperiments: typeof import('./src/components/admin/DisplayExperiments.vue')['default']

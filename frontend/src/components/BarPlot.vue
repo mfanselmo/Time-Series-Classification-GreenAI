@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { Line } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
 import {
     Chart as ChartJS,
     Title,
     Tooltip,
     Legend,
-    LineElement,
+    BarElement,
     LinearScale,
     PointElement,
     CategoryScale,
-type CoreChartOptions,
-type ScaleChartOptions,
+    type CoreChartOptions,
+    type ScaleChartOptions,
 } from 'chart.js'
 
 import type { Plugin, ChartOptions } from 'chart.js'
@@ -20,7 +20,7 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    LineElement,
+    BarElement,
     LinearScale,
     PointElement,
     CategoryScale
@@ -41,13 +41,13 @@ interface Props {
     minY?: number
     xLabel: string
     yLabel: string,
-    plugins?: Plugin<'line'>[]
+    plugins?: Plugin<'bar'>[]
     labels: number[] | string[]
     datasets: Dataset[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    chartId: "line-chart",
+    chartId: "bar-chart",
     width: 400,
     height: 400,
     cssClasses: '',
@@ -60,12 +60,12 @@ const chartData = computed(() => ({
     datasets: props.datasets
 }))
 
-const chartOptions: DeepPartial<CoreChartOptions<"line"> & ScaleChartOptions<'line'>> = {
+const chartOptions: DeepPartial<CoreChartOptions<"bar"> & ScaleChartOptions<'bar'>> = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
         y: {
-            min: props.minY || 0,
+            min: (props.minY && props.minY < 0) ? props.minY : 0,
             grace: "2%",
             title: {
                 text: props.yLabel,
@@ -83,14 +83,8 @@ const chartOptions: DeepPartial<CoreChartOptions<"line"> & ScaleChartOptions<'li
 
 </script>
 <template>
-    <Line 
-    :chart-options="chartOptions" 
-    :chart-data="chartData" 
-    :chart-id="chartId" 
-    :plugins="plugins" 
-    :css-classes="cssClasses" 
-    :width="width" 
-    :height="height" />
+    <Bar :chart-options="chartOptions" :chart-data="chartData" :chart-id="chartId" :plugins="plugins"
+        :css-classes="cssClasses" :width="width" :height="height" />
 
 
 </template>

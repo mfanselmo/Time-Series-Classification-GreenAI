@@ -46,7 +46,7 @@ const datasets = computed(() => {
             label: `${e.dataset} ${e.model}`,
             backgroundColor: '#e755ba',
             borderColor: '#bae755',
-            data: labels.value.map(i => (completeness_curve?.intercept || 0) + (completeness_curve?.coefficient || 0)*i)
+            data: labels.value.map(i => (completeness_curve?.intercept || 0) + (completeness_curve?.coefficient || 0)*Math.log(i))
         }
     })
 })
