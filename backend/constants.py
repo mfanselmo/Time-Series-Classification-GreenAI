@@ -50,17 +50,18 @@ RUN_DESCRIPTORS = [
 
 
 
-DATASET_TYPE_NAMES = Literal['images', 'time_series']
+DATASET_TYPE_NAMES = Literal['time_series']
 DATASET_NAMES = []
 MODEL_NAMES = []
 
 MODEL_TYPES = Literal['SIMPLE_CNN', 'SIMPLE_MLP', 'RESNET', 'Other']
-DATA_TYPES = Literal['Sensor', 'Spectro', 'Image', 'Device', 'Motion', 'Simulated', 'Traffic', 'ECG', 'EOG', 'Other']
-METRICS = Literal['f1_score', 'auc', 'categorical_accuracy', 'precision', 'recall']
+DATA_TYPES = Literal['Sensor', 'Spectro', 'Spectrum', 'Image', 'Device', 'Motion', 'Simulated', 'Traffic', 'ECG', 'EOG', 'Other']
+METRICS = Literal['f1_score']
 REDUCING_METHODS = Literal['keep_distributions', 'balance_classes']
 
 
 RESULTS_PATH = './static/experiment_results/'
+RESULTS_FILE_PATH = 'one_file/all.csv'
 REGRESSORS_PATH = './static/regressors/'
 
 

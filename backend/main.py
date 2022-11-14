@@ -8,7 +8,7 @@ from db import crud, models
 from db.database import SessionLocal, engine
 
 from typing_extensions import get_args
-
+import numpy as np
 
 from constants import DATA_TYPES, DATASET_TYPE_NAMES, DETAIL_LEVEL, METRICS, MODEL_TYPES, REDUCING_METHODS
 from utils.dataset_analyzer import DatasetAnalizer
@@ -128,11 +128,12 @@ def get_prediction(
 
     metric_coefficient = regressor.predict(model_type, data_type, n_parameters,
                                            datapoint_w, datapoint_h, dimensions, num_classes, original_data_size)
-    intercept = base_metric_result - metric_coefficient*base_metric_result_percentage
+    intercept = base_metric_result - metric_coefficient*np.log(base_metric_result_percentage)
 
     return {
         "metric_coefficient": metric_coefficient,
         "dataset_percent": (goal_metric - intercept)/metric_coefficient,
+        "dataset_percent": np.exp((goal_metric - intercept)/metric_coefficient),
         "ready": True
     }
 
