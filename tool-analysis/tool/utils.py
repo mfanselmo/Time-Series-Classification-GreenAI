@@ -22,10 +22,10 @@ def load_runs(dataset_type):
         Return dataframe with runs
     """
     total_df = pd.DataFrame()
-    for _, _, files in os.walk(f"{DATA_LOCATION}/{dataset_type}/filtered"):
+    for _, _, files in os.walk(f"{DATA_LOCATION}/{dataset_type}/one_file"):
         for file in files:
             if file.endswith(RUNS_FILE):
-                total_df = pd.concat([total_df, pd.read_csv(f"{DATA_LOCATION}/{dataset_type}/filtered/{file}")])
+                total_df = pd.concat([total_df, pd.read_csv(f"{DATA_LOCATION}/{dataset_type}/one_file/{file}")])
 
     return total_df
 

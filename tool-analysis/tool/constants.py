@@ -62,6 +62,6 @@ SPLIT_PERCENTAGE = 0.3
 
 COLS_TO_DROP = ['ready', 'loss', 'categorical_crossentropy', 'top_3_accuracy',
                 'top_5_accuracy', 'project_id', 'duration_per_epoch', 'emissions_per_epoch']
-DATA_LOCATION = './../backend/static/experiment_results'
+DATA_LOCATION = './../tool/backend/static/experiment_results'
 
 RUNS_FILE = 'all.csv'

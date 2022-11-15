@@ -35,7 +35,7 @@ def simulate_tool_usage(
     goal_metric = base_experiment_metric_result + performance_goal_increase
 
     if goal_metric > full_experiment_metric_result:
-        goal_metric = full_experiment_metric_result# (base_experiment_metric_result + full_experiment_metric_result)/2
+        goal_metric = full_experiment_metric_result
 
     """
         This is the tool model, trained with the data of chosen metric (not including user experiment)
@@ -68,17 +68,19 @@ def simulate_tool_usage(
         Now that we have the dataset percent out tool suggested, we can get the actual runs with that percentage
     """
     rounded_dataset_percent = min(round(dataset_percent, 1), 1)
-    tool_suggested_experiment_runs_df = user_experiment_runs_df.query(
-        f"data_quality_dimension_percentage == {rounded_dataset_percent}")
 
-    tool_suggested_experiment_metric_result = tool_suggested_experiment_runs_df[metric].mean()
-    tool_suggested_experiment_kg_emissions = tool_suggested_experiment_runs_df['emissions_kg'].mean()
+    
+    tool_suggested_runs = user_experiment_runs_df.query(
+        f"data_quality_dimension_percentage == {rounded_dataset_percent}")
+    tool_suggested_experiment_metric_result = tool_suggested_runs[metric].mean()
+    tool_suggested_experiment_kg_emissions = tool_suggested_runs['emissions_kg'].mean()
+
 
     classic_method_emissions = phase_one_hyperparameter_search_iterations*full_experiment_kg_emissions
     our_method_emissions = phase_one_hyperparameter_search_iterations*base_experiment_kg_emissions + \
         phase_2_hyperparameter_search_iterations*tool_suggested_experiment_kg_emissions
 
-    emissions_percentage_change = -(our_method_emissions - classic_method_emissions)/classic_method_emissions
+    emissions_percentage_change = (our_method_emissions - classic_method_emissions)/classic_method_emissions
 
     if verbose:
         print(
@@ -137,7 +139,10 @@ def simulate_tool_usage(
         'our_method_emissions_kg': our_method_emissions,
         'emissions_kg_reduction': classic_method_emissions - our_method_emissions,
         'emissions_percentual_change': 100*(emissions_percentage_change),
-
+        'full_experiment_kg_emissions':full_experiment_kg_emissions,
+        'base_experiment_kg_emissions':base_experiment_kg_emissions, 
+        'tool_suggested_experiment_kg_emissions':tool_suggested_experiment_kg_emissions,
+        
         # Extra
         'full_experiment_metric_result': full_experiment_metric_result,
         'performance_loss_vs_full_dataset': full_experiment_metric_result - tool_suggested_experiment_metric_result,

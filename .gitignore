@@ -1,20 +1,26 @@
 tool-analysis/.ipynb_checkpoints
+tool-analysis/extra/.ipynb_checkpoints
+tool-analysis/first_validation/.ipynb_checkpoints
+tool-analysis/old
 thesis_figures.ipynb
 extra.ipynb
 
-frontend/node_modules
-frontend/.DS_Store
-frontend/dist
-frontend/dist-ssr
-*.local
-frontend/debug.log
-frontend/.idea
+
+tool-analysis/extra/
+
+tool/frontend/node_modules
+tool/frontend/.DS_Store
+tool/frontend/dist
+tool/frontend/dist-ssr
+tool/*.local
+tool/frontend/debug.log
+tool/frontend/.idea
 
 
-inputs/
-frontend/__pycache__
+tool/inputs/
+tool/frontend/__pycache__
 __pycache__/
 *.py[cod]
 *.joblib
 
-backend/sql_app.db
+tool/backend/sql_app.db

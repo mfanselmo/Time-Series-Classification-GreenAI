@@ -16,12 +16,12 @@ for root, dirs, files in os.walk("./first_validation/results"):
         total_emissions_first_validation += float(res[1])
         total_count_first_validation += float(res[0])
 
-for root, dirs, files in os.walk("./../backend/static/experiment_results/time_series/"):
+for root, dirs, files in os.walk("./../tool/backend/static/experiment_results/time_series/"):
     path = root.split(os.sep)
     if path[0].endswith('filtered'): continue
     for file in files:
         table_name = file[:-4]
-        full_path = "./../backend/static/experiment_results/time_series" + os.path.basename(root) + "/" + file
+        full_path = "./../tool/backend/static/experiment_results/time_series" + os.path.basename(root) + "/" + file
 
         query = f"""csvsql --query "select COUNT(*), SUM(emissions_kg)  from {table_name}" {full_path}"""
 
