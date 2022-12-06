@@ -1,6 +1,7 @@
 from fastapi import UploadFile
 import numpy as np
 import random
+import pandas as pd
 from imblearn.under_sampling import RandomUnderSampler
 
 from constants import REDUCING_METHODS
@@ -71,9 +72,28 @@ class DatasetAnalizer:
         goal_size = int(self.x_train.shape[0]*dataset_percent)
 
         # In order of most important DQ dimensions
-        # TODO
+
         # Consistency
         current_consistency = self.dataset_consistency()
+        if current_consistency < 1:
+            left_to_remove = self.x_train.shape[0] - goal_size
+
+
+            repeats = filter(lambda x: x.shape[0] > 1, pd.DataFrame(self.x_train).groupby([0]).indices.values())
+            current_number_take_out = 0
+            take_out_indices = []
+
+            for repeat_index in repeats:
+                current_number_take_out += repeat_index.shape[0]
+
+                take_out_indices = [*take_out_indices, *repeat_index]
+
+                if current_number_take_out > left_to_remove:
+                    break
+
+
+            self.x_train = np.delete(self.x_train, take_out_indices, axis=0)
+            self.y_train = np.delete(self.y_train, take_out_indices, axis=0)
 
 
         
@@ -125,9 +145,7 @@ class DatasetAnalizer:
                 sampling_strategy = {i: 0 for i in classes}
 
                 while total_to_drop > 0:
-
-                    class_to_drop = max(classes_counts_original, key=classes_counts_original.get)
-
+                    class_to_drop = max(classes_counts, key=classes_counts.get)
                     sampling_strategy[class_to_drop] += 1
                     classes_counts[class_to_drop] -= 1
                     total_to_drop -= 1
