@@ -55,6 +55,6 @@ const datasets = computed(() => {
 
 <template>
     <div class="flex">
-        <line-plot class="flex-1" v-if="!isLoading" :labels="labels" :datasets="datasets" />
+        <line-plot x-label="" y-label="" class="flex-1" v-if="!isLoading" :labels="labels" :datasets="datasets" />
     </div>
 </template>
