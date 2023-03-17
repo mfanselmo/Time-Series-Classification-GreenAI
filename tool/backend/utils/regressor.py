@@ -20,6 +20,8 @@ class Regressor:
         self.load_model()
 
     def save_model(self):
+        if not os.path.exists(REGRESSORS_PATH):
+            os.makedirs(REGRESSORS_PATH)
         dump(self.regressor, self.model_path)
         dump(self.encoder, self.encoder_path)
 
